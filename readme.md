@@ -44,27 +44,28 @@ VISION Board leverages the core board rendering, move classification, and engine
 
 ---
 
-## 📂 Detailed Project Structure
+## 📂 Repository Structure
 
-VISION Board is structured as a monorepo containing three core packages:
-
-### 1. `client/`
-The React and TypeScript frontend SPA containing:
-- **`src/apps/features/analysis/`**: The core dashboard feature area where the chessboard, report sheets, move lists, and chatbot screens are defined.
-  - **`components/Board/`**: The custom chessboard container which renders the board, evaluation bars, and handles check/checkmate overlay logic.
-  - **`components/AnalysisPanel/`**: Displays the right sidebar containing the tab switcher (Report, Analysis, Coach) and active setups.
-  - **`stores/`**: Local state management via Zustand (splitting play state logs and active tab layouts).
-- **`src/components/layout/`**: Global UI structures like the left vertical NavigationBar and Sidebar drawer wrappers.
-
-### 2. `server/`
-The Node.js Express backend API:
-- **`src/routes/api/analysis/coach.ts`**: The endpoint responsible for generating chatbot responses, constructing system prompts from current board FEN states, and querying the Gemini AI API.
-- Serves static assets, handles database integrations, and authenticates game sessions.
-
-### 3. `shared/`
-Shared libraries, types, and logic used by both the client and server:
-- **`shared/types/`**: Shared TS typings for moves, classifications, and players.
-- **`shared/lib/`**: Evaluation algorithms, accuracy score calculators, and PGN parsing utilities.
+```
+├── client/                     # Frontend client workspace (React + TS)
+│   ├── src/                    # Source directory containing app page routers
+│   │   ├── apps/               # Modules for PGN Analysis and Play vs Stockfish
+│   │   │   └── features/       # Board controls, evaluation panels, and chatbot views
+│   │   ├── components/         # Reusable UI dashboard elements and navigation links
+│   │   └── index.css           # Core styling system (dark emerald, Spotify green variables)
+│   └── public/                 # HTML templates, assets, icons, and audio
+├── server/                     # Backend server workspace (Express + Node)
+│   ├── src/                    # Source directory containing api routes
+│   │   └── routes/             # Gemini AI Coach and auth handler endpoints
+│   └── dist/                   # Compiled server distribution folder
+├── shared/                     # Common shared monorepo codebase
+│   └── src/                    # Shared typings, helper utilities, and calculations
+├── Screenshots/                # Application preview screenshots
+├── vercel.json                 # Vercel monorepo deployment routes configuration
+├── package.json                # Project workspaces script config
+├── readme.md                   # Repository documentation (this file)
+└── LICENSE                     # GPL-3.0 License details
+```
 
 ---
 
