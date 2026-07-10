@@ -110,7 +110,8 @@
     },
     "analysisTabBar": {
         "report": "Report",
-        "analysis": "Analysis"
+        "analysis": "Analysis",
+        "coach": "Coach"
     },
     "accuraciesCard": {
         "title": "Accuracies"

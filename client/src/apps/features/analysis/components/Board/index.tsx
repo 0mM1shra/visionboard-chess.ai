@@ -22,6 +22,45 @@ function getPieceType(piece: Piece) {
     return piece.at(1)?.toLowerCase() as PieceSymbol;
 }
 
+function getCapturedPieces(fen: string) {
+    const activePieces = fen.split(" ")[0].replace(/[^a-zA-Z]/g, "");
+    const counts: Record<string, number> = {
+        P: 0, N: 0, B: 0, R: 0, Q: 0,
+        p: 0, n: 0, b: 0, r: 0, q: 0
+    };
+    for (const char of activePieces) {
+        if (counts[char] !== undefined) {
+            counts[char]++;
+        }
+    }
+    const capturedByWhite: { type: string, value: number, symbol: string }[] = [];
+    const capturedByBlack: { type: string, value: number, symbol: string }[] = [];
+    const values: Record<string, number> = { p: 1, n: 3, b: 3, r: 5, q: 9, P: 1, N: 3, B: 3, R: 5, Q: 9 };
+    const symbols: Record<string, string> = { p: "♟", n: "♞", b: "♝", r: "♜", q: "♛", P: "♙", N: "♘", B: "♗", R: "♖", Q: "♕" };
+    const startingCountsWhite = { P: 8, N: 2, B: 2, R: 2, Q: 1 };
+    const startingCountsBlack = { p: 8, n: 2, b: 2, r: 2, q: 1 };
+    let totalValueWhiteActive = 0;
+    let totalValueBlackActive = 0;
+    for (const [piece, max] of Object.entries(startingCountsBlack)) {
+        const active = counts[piece] || 0;
+        const captured = max - active;
+        totalValueBlackActive += active * values[piece];
+        for (let i = 0; i < captured; i++) {
+            capturedByWhite.push({ type: piece, value: values[piece], symbol: symbols[piece] });
+        }
+    }
+    for (const [piece, max] of Object.entries(startingCountsWhite)) {
+        const active = counts[piece] || 0;
+        const captured = max - active;
+        totalValueWhiteActive += active * values[piece];
+        for (let i = 0; i < captured; i++) {
+            capturedByBlack.push({ type: piece, value: values[piece], symbol: symbols[piece] });
+        }
+    }
+    const advantage = totalValueWhiteActive - totalValueBlackActive;
+    return { capturedByWhite, capturedByBlack, advantage };
+}
+
 function Board({
     className,
     style,
@@ -51,6 +90,18 @@ function Board({
 
     const topProfile = flipped ? whiteProfile : blackProfile;
     const bottomProfile = flipped ? blackProfile : whiteProfile;
+
+    const { capturedByWhite, capturedByBlack, advantage } = getCapturedPieces(node.state.fen);
+
+    const isTopWhite = flipped;
+    const topCaptured = isTopWhite ? capturedByWhite : capturedByBlack;
+    const topAdvantageVal = isTopWhite ? advantage : -advantage;
+    const topAdvantageText = topAdvantageVal > 0 ? `+${topAdvantageVal}` : undefined;
+
+    const isBottomWhite = !flipped;
+    const bottomCaptured = isBottomWhite ? capturedByWhite : capturedByBlack;
+    const bottomAdvantageVal = isBottomWhite ? advantage : -advantage;
+    const bottomAdvantageText = bottomAdvantageVal > 0 ? `+${bottomAdvantageVal}` : undefined;
 
     function onSquareClick(square: Square, piece?: Piece) {
         squares.setHighlighted([]);
@@ -119,7 +170,7 @@ function Board({
             className={`${styles.profile} ${profileClassName}`}
             style={{ borderRadius: "7px 7px 0 0", ...profileStyle }}
         >
-            <PlayerProfile profile={topProfile} />
+            <PlayerProfile profile={topProfile} captured={topCaptured} advantage={topAdvantageText} />
         </div>}
 
         <div className={styles.boardContainer} ref={boardContainerRef}>
@@ -170,7 +221,7 @@ function Board({
             className={`${styles.profile} ${profileClassName}`}
             style={{ borderRadius: "0 0 7px 7px", ...profileStyle }}
         >
-            <PlayerProfile profile={bottomProfile} />
+            <PlayerProfile profile={bottomProfile} captured={bottomCaptured} advantage={bottomAdvantageText} />
         </div>}
     </div>;
 }

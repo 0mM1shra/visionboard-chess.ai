@@ -65,3 +65,104 @@
         border-radius: 0;
     }
 }
+
+.credits {
+    position: fixed;
+    bottom: 12px;
+    right: 20px;
+    font-size: 0.8rem;
+    color: var(--ui-shade-7);
+    font-family: "Noto Sans", sans-serif;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.setupPanel {
+    background-color: #050c09;
+    border: 1px solid #142c22;
+    border-radius: 12px;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    height: 100%;
+}
+
+.setupTitle {
+    font-family: Georgia, serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+.setupGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.setupLabel {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.colorSelector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.colorBtn, .eloBtn {
+    background-color: #0b1c15;
+    border: 1px solid #142c22;
+    color: #8fa89b;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.colorBtn:hover, .eloBtn:hover {
+    border-color: #1db954;
+    color: #ffffff;
+}
+
+.selectedColor, .selectedElo {
+    background-color: rgba(29, 185, 84, 0.15) !important;
+    border-color: #1db954 !important;
+    color: #ffffff !important;
+}
+
+.eloGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+}
+
+.startGameBtn {
+    background-color: #16a34a;
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    text-align: center;
+    margin-top: auto;
+}
+
+.startGameBtn:hover {
+    opacity: 0.9;
+}

@@ -36,7 +36,7 @@ function PageWrapper({
     const [ announcementOpen, setAnnouncementOpen ] = useState(true);
 
     return <QueryClientProvider client={queryClient}>
-        <div className={className} style={style}>
+        <div className={`${styles.container} ${className || ""}`} style={style}>
             {announcementOpen && announcementStatus == "success"
                 && <Announcement
                     style={{ zIndex: 99 }}
@@ -57,8 +57,6 @@ function PageWrapper({
             >
                 {children}
             </div>
-
-            <Footer className={footerClassName} style={footerStyle} />
 
             {bugReportingMode && <BugReportingWidget/>}
 

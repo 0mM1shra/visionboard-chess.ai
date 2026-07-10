@@ -53,14 +53,67 @@ function createSquareRenderer(
             ? parseUciMove(node.state.move.uci)
             : undefined;
 
+        // Determine if King is in check or checkmate
+        let checkKingSquare: string | undefined;
+        let matedKingSquare: string | undefined;
+        try {
+            const { Chess } = require("chess.js");
+            const chess = new Chess(node.state.fen);
+            if (chess.inCheck()) {
+                const turn = chess.turn();
+                for (const row of chess.board()) {
+                    for (const col of row) {
+                        if (col && col.type === "k" && col.color === turn) {
+                            checkKingSquare = col.square;
+                            break;
+                        }
+                    }
+                    if (checkKingSquare) break;
+                }
+            }
+            if (chess.isCheckmate()) {
+                const turn = chess.turn();
+                for (const row of chess.board()) {
+                    for (const col of row) {
+                        if (col && col.type === "k" && col.color === turn) {
+                            matedKingSquare = col.square;
+                            break;
+                        }
+                    }
+                    if (matedKingSquare) break;
+                }
+            }
+        } catch (e) {
+            console.error(e);
+        }
+
         const highlightColour = node.state.classification
             ? classificationColours[node.state.classification]
             : "#ffff33";
 
         const [ piece, ...notations ] = getSquareElements(children);
 
+        const renderedPiece = (!squares.pieceDropFlag || square != playedMove?.from) && piece;
+
         return <div ref={ref} style={{ ...style, position: "relative" }}>
-            {(!squares.pieceDropFlag || square != playedMove?.from) && piece}
+            {renderedPiece && (
+                square === matedKingSquare ? (
+                    <div style={{ transform: "rotate(90deg)", width: "100%", height: "100%", display: "flex", alignItems: "center", justifyItems: "center" }}>
+                        {renderedPiece}
+                    </div>
+                ) : renderedPiece
+            )}
+
+            {square === checkKingSquare && <div style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                backgroundColor: "rgba(255, 0, 0, 0.4)",
+                pointerEvents: "none",
+                zIndex: 1
+            }}/>}
 
             {notations}
 

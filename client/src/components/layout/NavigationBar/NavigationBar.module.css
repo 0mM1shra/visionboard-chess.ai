@@ -1,128 +1,132 @@
-.wrapper {
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #050c09;
+    border-right: 1px solid #142c22;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    padding: 0 10px;
+    flex-direction: column;
     box-sizing: border-box;
-    width: 100%;
-    height: 65px;
-    z-index: 100;
+    padding: 24px 0;
     position: sticky;
     top: 0;
-
-    background-color: var(--ui-shade-2);
-    color: white;
-
-    overflow-x: auto;
+    flex-shrink: 0;
+    z-index: 100;
 }
 
-.wrapper::-webkit-scrollbar {
-    height: 5px;
-}
-
-.menuButton {
-    display: none;
-
-    cursor: pointer;
-    transition-duration: 0.3s;
-}
-
-.menuButton:hover {
-    transform: scale(1.05);
-}
-
-@media (max-width: 800px) {
-    .menuButton {
-        display: block;
-    }
-}
-
-@media (max-width: 1000px) {
-    .typographyText {
-        display: none;
-    }
-}
-
-@media (max-width: 800px) {
-    .typographyText {
-        display: flex;
-    }
-}
-
-@media (max-width: 700px) {
-    .typographyText {
-        display: none;
-    }
-}
-
-.section {
+.logoArea {
     display: flex;
     align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-    height: 100%;
+    padding: 0 20px 20px 20px;
+    border-bottom: 1px solid #142c22;
 }
 
-.tabs {
+.logoText {
+    font-family: "Nunito", sans-serif;
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.logoSubtext {
+    color: #1db954;
+}
+
+.header {
+    padding: 20px 20px 10px 20px;
+}
+
+.workspaceLabel {
+    font-family: "Nunito", sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.menu {
+    flex-grow: 1;
     display: flex;
-    flex-shrink: 0;
-    margin-left: 5px;
-    max-width: 100%;
-    height: 100%;
+    flex-direction: column;
+    gap: 8px;
+    padding: 20px;
+}
+
+.menuItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    color: #8fa89b;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+}
+
+.menuItem:hover {
+    color: #ffffff;
+    background-color: rgba(29, 185, 84, 0.08);
+    border-color: rgba(29, 185, 84, 0.2);
+}
+
+.activeItem {
+    color: #ffffff !important;
+    background-color: rgba(29, 185, 84, 0.12) !important;
+    border: 1px solid rgba(29, 185, 84, 0.5) !important;
+    box-shadow: 0 0 10px rgba(29, 185, 84, 0.1);
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: grayscale(30%);
+}
+
+.activeItem .icon {
+    filter: none;
+}
+
+.footer {
+    padding: 20px;
+    border-top: 1px solid #142c22;
+    display: flex;
+    justify-content: center;
+}
+
+.credits {
+    font-size: 0.8rem;
+    color: #4a5d54;
+    font-weight: 600;
 }
 
 @media (max-width: 800px) {
-    .tabs {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid #142c22;
+        padding: 12px 0;
+    }
+    .header {
+        padding: 0 16px 8px 16px;
+        border-bottom: none;
+    }
+    .menu {
+        flex-direction: row;
+        padding: 8px 16px;
+        overflow-x: auto;
+    }
+    .menuItem {
+        padding: 8px 12px;
+    }
+    .footer {
         display: none;
     }
-}
-
-.support {
-    background: linear-gradient(
-        -225deg, #22e1FF 0%, #1d8fe1 48%, #625eb1 100%
-    );
-}
-
-.signIn {
-    gap: 5px;
-    padding: 7px;
-    padding-right: 10px;
-
-    font-family: "Nunito";    
-}
-
-.settings {
-    padding: 7px;
-    
-    background-color: var(--ui-shade-2);
-}
-
-.profileMenu {
-    padding: 0 5px;
-
-    user-select: none;
-}
-
-.profileIcon {
-    display: none;
-    height: 35px;
-}
-
-@media (max-width: 450px) {
-    .profileUsername {
-        display: none;
-    }
-
-    .profileIcon {
-        display: inline;
-    }
-}
-
-.profileImage {
-    height: 42px;
-    aspect-ratio: 1 / 1;
-
-    border-radius: 50%;
-    background-color: aquamarine;
 }

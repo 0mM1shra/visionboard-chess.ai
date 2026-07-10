@@ -7,6 +7,15 @@ import useAnalysisGameStore from "./AnalysisGameStore";
 
 interface AnalysisBoardStore {
     currentStateTreeNode: StateTreeNode;
+    analysisStateTreeNode: StateTreeNode;
+    playStateTreeNode: StateTreeNode;
+    playMode: boolean;
+
+    // Stockfish Bot Game Configuration
+    playGameStarted: boolean;
+    playPlayerColor: "w" | "b";
+    playElo: number;
+
     currentStateTreeNodeUpdate: boolean;
     boardFlipped: boolean;
     autoplayEnabled: boolean;
@@ -25,12 +34,25 @@ interface AnalysisBoardStore {
     setPlayableSquares: (squares: Square[]) => void;
     setCapturableSquares: (squares: Square[]) => void;
     setHighlightedSquares: Dispatch<SetStateAction<Square[]>>;
+
+    setPlayMode: (playMode: boolean) => void;
+    setPlayGameStarted: (started: boolean) => void;
+    setPlayPlayerColor: (color: "w" | "b") => void;
+    setPlayElo: (elo: number) => void;
 }
 
+const initialTree = useAnalysisGameStore.getInitialState().analysisGame.stateTree;
+
 const useAnalysisBoardStore = create<AnalysisBoardStore>(set => ({
-    currentStateTreeNode: (
-        useAnalysisGameStore.getInitialState().analysisGame.stateTree
-    ),
+    currentStateTreeNode: initialTree,
+    analysisStateTreeNode: initialTree,
+    playStateTreeNode: initialTree,
+    playMode: false,
+
+    playGameStarted: false,
+    playPlayerColor: "w",
+    playElo: 1500,
+
     currentStateTreeNodeUpdate: false,
     boardFlipped: false,
     autoplayEnabled: false,
@@ -41,12 +63,35 @@ const useAnalysisBoardStore = create<AnalysisBoardStore>(set => ({
 
     setCurrentStateTreeNode(node) {
         if (typeof node == "function") {
-            return set(state => ({
-                currentStateTreeNode: node(state.currentStateTreeNode)
-            }));
+            return set(state => {
+                const nextNode = node(state.currentStateTreeNode);
+                if (state.playMode) {
+                    return {
+                        currentStateTreeNode: nextNode,
+                        playStateTreeNode: nextNode
+                    };
+                } else {
+                    return {
+                        currentStateTreeNode: nextNode,
+                        analysisStateTreeNode: nextNode
+                    };
+                }
+            });
         }
         
-        set({ currentStateTreeNode: node });
+        set(state => {
+            if (state.playMode) {
+                return {
+                    currentStateTreeNode: node,
+                    playStateTreeNode: node
+                };
+            } else {
+                return {
+                    currentStateTreeNode: node,
+                    analysisStateTreeNode: node
+                };
+            }
+        });
     },
 
     dispatchCurrentNodeUpdate() {
@@ -83,6 +128,37 @@ const useAnalysisBoardStore = create<AnalysisBoardStore>(set => ({
         }
 
         set({ highlightedSquares: squares });
+    },
+
+    setPlayMode(playMode) {
+        set(state => {
+            if (state.playMode === playMode) return {};
+            if (playMode) {
+                return {
+                    playMode: true,
+                    analysisStateTreeNode: state.currentStateTreeNode,
+                    currentStateTreeNode: state.playStateTreeNode
+                };
+            } else {
+                return {
+                    playMode: false,
+                    playStateTreeNode: state.currentStateTreeNode,
+                    currentStateTreeNode: state.analysisStateTreeNode
+                };
+            }
+        });
+    },
+
+    setPlayGameStarted(started) {
+        set({ playGameStarted: started });
+    },
+
+    setPlayPlayerColor(color) {
+        set({ playPlayerColor: color });
+    },
+
+    setPlayElo(elo) {
+        set({ playElo: elo });
     }
 }));
 

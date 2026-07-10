@@ -5,7 +5,18 @@ import * as styles from "./PlayerProfile.module.css";
 
 import iconDefaultProfileImage from "@assets/img/defaultprofileimage.png";
 
-function PlayerProfile({ profile }: PlayerProfileProps) {
+interface PlayerProfileProps {
+    profile: {
+        username?: string;
+        rating?: number;
+        title?: string;
+        image?: string;
+    };
+    captured?: { type: string, value: number, symbol: string }[];
+    advantage?: string;
+}
+
+function PlayerProfile({ profile, captured, advantage }: PlayerProfileProps) {
     const [ defaultImage, setDefaultImage ] = useState(false);
 
     return <div className={styles.wrapper}>
@@ -31,6 +42,22 @@ function PlayerProfile({ profile }: PlayerProfileProps) {
                 ({profile.rating})
             </span>
         }
+
+        {captured && captured.length > 0 && (
+            <span className={styles.capturedContainer}>
+                {captured.map((p, idx) => (
+                    <span key={idx} className={styles.capturedPiece} title={p.type}>
+                        {p.symbol}
+                    </span>
+                ))}
+            </span>
+        )}
+
+        {advantage && (
+            <span className={styles.advantageText}>
+                {advantage}
+            </span>
+        )}
     </div>;
 }
 

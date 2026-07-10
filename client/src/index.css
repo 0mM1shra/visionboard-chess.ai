@@ -14,24 +14,26 @@
 }
 
 :root {
-    --ui-blue: #467de8;
-    --ui-lavender: #625eb1;
-    --ui-shade-1: #101216;
-    --ui-shade-2: #17191e;
-    --ui-shade-3: #1f2125;
-    --ui-shade-4: #2c2f35;
-    --ui-shade-5: #3b3e43;
-    --ui-shade-6: #3e4349;
-    --ui-shade-7: #50575f;
+    --ui-blue: #10b981;
+    --ui-lavender: #059669;
+    --ui-shade-1: #020705;
+    --ui-shade-2: #030d09;
+    --ui-shade-3: #05140e;
+    --ui-shade-4: #082117;
+    --ui-shade-5: #0b2d20;
+    --ui-shade-6: #0e3b2a;
+    --ui-shade-7: #175d43;
 
-    --rt-color-dark: #111 !important;
+    --rt-color-dark: #020705 !important;
 }
 
 body {
     margin: 0;
     overflow-x: hidden;
-
-    background-color: var(--ui-shade-1);
+    background: radial-gradient(circle at 80% 20%, #032418 0%, #010503 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: #e6f4f0;
 }
 
 * {
@@ -39,16 +41,16 @@ body {
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
-
-    background-color: #424242;
+    width: 6px;
+    height: 6px;
+    background-color: #020705;
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: white;
+    background-color: #10b981;
+    border-radius: 3px;
 }
 
 ::-webkit-scrollbar-corner {
-    background-color: #919191;
+    background-color: #020705;
 }

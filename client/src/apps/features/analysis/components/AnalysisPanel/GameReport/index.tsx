@@ -11,16 +11,26 @@ import EvaluationGraphArea from "./EvaluationGraphArea";
 function GameReport() {
     const analysisGame = useAnalysisGameStore(state => state.analysisGame);
 
-    useAnalysisBoardStore(state => state.currentStateTreeNodeUpdate);
+    const {
+        currentStateTreeNodeUpdate,
+        currentStateTreeNode
+    } = useAnalysisBoardStore();
 
-    const accuracies = getGameAccuracy(analysisGame.stateTree);
+    // Find the root of the active tree
+    let rootNode = currentStateTreeNode;
+    while (rootNode.parent) {
+        rootNode = rootNode.parent;
+    }
+
+    const accuracies = getGameAccuracy(rootNode);
+    const mockGame = { ...analysisGame, stateTree: rootNode };
     
     return <>
         <EvaluationGraphArea/>
 
         <AccuraciesCard accuracies={accuracies} />
 
-        <ClassificationCountCard analysisGame={analysisGame} />
+        <ClassificationCountCard analysisGame={mockGame} />
     </>;
 }
 

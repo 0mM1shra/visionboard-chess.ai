@@ -16,6 +16,7 @@ import RealtimeEngineArea from "./RealtimeEngineArea";
 import GameSelection from "./GameSelection";
 import GameReport from "./GameReport";
 import GameAnalysis from "./GameAnalysis";
+import GameCoach from "./GameCoach";
 
 import AnalysisPanelProps from "./AnalysisPanelProps";
 import * as styles from "./AnalysisPanel.module.css";
@@ -38,7 +39,17 @@ function AnalysisPanel({
         state => state.currentStateTreeNode
     );
 
-    const { activeTab } = useAnalysisTabStore();
+    const {
+        activeTab
+    } = useAnalysisTabStore();
+
+    const {
+        playMode,
+        playGameStarted,
+        setPlayGameStarted
+    } = useAnalysisBoardStore();
+
+    const isGameOpen = playMode ? playGameStarted : gameAnalysisOpen;
     
     return <div
         className={`${styles.wrapper} ${className}`}
@@ -46,33 +57,40 @@ function AnalysisPanel({
     >
         <div className={styles.components}>
             <div className={styles.title}>
-                {t("title")}
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1baaa6" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ flexShrink: 0 }}>
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                    <span>Game Review</span>
+                </div>
+
+                {playMode && playGameStarted && (
+                    <button 
+                        onClick={() => setPlayGameStarted(false)} 
+                        className={styles.resignBtn}
+                    >
+                        Resign
+                    </button>
+                )}
             </div>
 
             <OptionsToolbar/>
 
-            {gameAnalysisOpen && <TabBar/>}
+            {isGameOpen && <TabBar/>}
 
             <AnalysisProgress/>
 
-            {(gameAnalysisOpen && settings.engine.enabled)
+            {(isGameOpen && settings.engine.enabled)
                 && <RealtimeEngineArea/>
             }
 
-            {gameAnalysisOpen
-                && currentNode.state.move
-                && !settings.classifications.hide
-                && (
-                    settings.engine.enabled
-                    || currentNode.state.classification
-                )
-                && <ClassifiedMoveCard/>
-            }
-
-            {gameAnalysisOpen
+            {isGameOpen
                 ? (activeTab == AnalysisTab.REPORT
                     ? <GameReport/>
-                    : <GameAnalysis/>
+                    : activeTab == AnalysisTab.ANALYSIS
+                    ? <GameAnalysis/>
+                    : <GameCoach/>
                 )
                 : <GameSelection/>
             }

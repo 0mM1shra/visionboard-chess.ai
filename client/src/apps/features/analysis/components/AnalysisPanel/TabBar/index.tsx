@@ -32,6 +32,16 @@ function TabBar() {
         >
             {t("analysisTabBar.analysis")}
         </Button>
+
+        <Button
+            className={
+                `${styles.button} ${styles.coachButton} `
+                + (activeTab == AnalysisTab.COACH ? styles.selectedButton : "")
+            }
+            onClick={() => setActiveTab(AnalysisTab.COACH)}
+        >
+            {t("analysisTabBar.coach", "Coach")}
+        </Button>
     </div>;
 }
 

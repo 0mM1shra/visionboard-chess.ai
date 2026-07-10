@@ -14,35 +14,43 @@ dotenv.config();
 
 const port = process.env.PORT || 8080;
 const nodeEnv = process.env.NODE_ENV || "production";
+const isVercel = process.env.VERCEL === "1";
 
-const coreCount = os.cpus().length;
+const app = express();
 
-async function main() {
-    if (cluster.isPrimary) {
-        console.log("starting server...");
-        for (let i = 0; i < coreCount; i++) cluster.fork();
+app.use(cookieParser());
+app.use(hostnameWhitelist);
 
+// Static assets
+app.use("/",
+    express.static("client/dist"),
+    express.static("client/public")
+);
+
+// Normal endpoints
+app.all("/auth/account/*", async (req, res, next) => {
+    try {
+        await connectDatabase();
+        toNodeHandler(getAuth())(req, res);
+    } catch (err) {
+        next(err);
+    }
+});
+app.use("/", mainRouter);
+
+async function startServer() {
+    await connectDatabase();
+    if (isVercel) {
         return;
     }
 
-    await connectDatabase();
+    const coreCount = os.cpus().length;
+    if (cluster.isPrimary) {
+        console.log("starting server...");
+        for (let i = 0; i < coreCount; i++) cluster.fork();
+        return;
+    }
 
-    const app = express();
-
-    app.use(cookieParser());
-    app.use(hostnameWhitelist);
-
-    // Static assets
-    app.use("/",
-        express.static("client/dist"),
-        express.static("client/public")
-    );
-
-    // Normal endpoints
-    app.all("/auth/account/*", toNodeHandler(getAuth()));
-    app.use("/", mainRouter);
-
-    // Start listening for requests
     app.listen(port, () => {
         if (cluster.worker?.id != 1) return;
 
@@ -54,4 +62,10 @@ async function main() {
     });
 }
 
-main();
+if (!isVercel) {
+    startServer();
+} else {
+    connectDatabase();
+}
+
+export default app;

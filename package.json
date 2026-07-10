@@ -9,6 +9,7 @@
         "build": "npm run build --workspaces --if-present",
         "bbuild": "npm run build -w shared && npm run build -w server",
         "dev": "npm run build && npm start",
+        "vercel-build": "npm run build",
         "lint": "eslint ."
     },
     "devDependencies": {

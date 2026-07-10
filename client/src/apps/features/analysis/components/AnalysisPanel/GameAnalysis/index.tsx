@@ -13,12 +13,19 @@ function GameAnalysis() {
     const {
         currentStateTreeNode,
         setCurrentStateTreeNode,
-        setAutoplayEnabled
+        setAutoplayEnabled,
+        playMode
     } = useAnalysisBoardStore();
+
+    // Dynamically find the root node of the active tree (works for both play and analysis)
+    let rootNode = currentStateTreeNode;
+    while (rootNode.parent) {
+        rootNode = rootNode.parent;
+    }
     
     return <StateTreeEditor
         className={styles.stateTreeEditor}
-        stateTreeRootNode={analysisGame.stateTree}
+        stateTreeRootNode={rootNode}
         onMoveClick={node => {
             setCurrentStateTreeNode(node);
         

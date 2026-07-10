@@ -23,9 +23,15 @@ function EvaluationGraphArea() {
         }))
     );
 
+    // Find the root of the active tree
+    let rootNode = currentStateTreeNode;
+    while (rootNode.parent) {
+        rootNode = rootNode.parent;
+    }
+
     const mainlineChain = useMemo(() => (
-        getNodeChain(analysisGame.stateTree)
-    ), [analysisGame, currentStateTreeNodeUpdate]);
+        getNodeChain(rootNode)
+    ), [rootNode, currentStateTreeNodeUpdate]);
 
     return <EvaluationGraph
         nodes={mainlineChain}
