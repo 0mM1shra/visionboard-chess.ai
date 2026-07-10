@@ -29,10 +29,6 @@ function NavigationBar() {
                 </span>
             </div>
 
-            <div className={styles.header}>
-                <span className={styles.workspaceLabel}>WORKSPACE MODULES</span>
-            </div>
-
             <div className={styles.menu}>
                 <Link 
                     to={isLinkDisabled ? "#" : "/analysis"} 

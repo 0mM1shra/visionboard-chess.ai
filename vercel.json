@@ -2,7 +2,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "server/dist/index.js",
+      "src": "index.mjs",
       "use": "@vercel/node",
       "config": {
         "includeFiles": [
@@ -16,7 +16,7 @@
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "server/dist/index.js"
+      "dest": "index.mjs"
     }
   ]
 }
