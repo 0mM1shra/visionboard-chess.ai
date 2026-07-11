@@ -130,6 +130,3 @@ VISION Board is created and developed by **Om Mishra ([0mM1shra](https://github.
 
 ---
 
-## 📄 License
-
-This project is licensed under the **GPL-3.0 License** - see the [LICENSE](LICENSE) file for details.
