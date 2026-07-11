@@ -8,7 +8,8 @@
         "includeFiles": [
           "client/dist/**",
           "client/public/**",
-          "server/dist/**"
+          "server/dist/**",
+          "server/src/resources/**"
         ]
       }
     }
