@@ -1,5 +1,10 @@
 # 👁️ VISION Board
 
+![React](https://img.shields.io/badge/React-18-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
+![CSS3 Modules](https://img.shields.io/badge/CSS3-Modules-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+
 VISION Board is a premium Chess Tutor, Local Game Review Engine, and Play Dashboard. Designed as a high-fidelity tool for players to review their matches and hone their skills, the platform offers automated game reviews, an interactive AI coach chatbot, and adjustable ELO computer bot play.
 
 Originally built on top of the open-source **[WintrChess](https://github.com/WintrCat/wintrchess)** engine, this application extends the base review tools into a fully interactive chess sandbox.
