@@ -1,4 +1,3 @@
-import { resolve } from "path";
 import { readFileSync } from "fs";
 import mailer from "nodemailer";
 
@@ -11,15 +10,14 @@ interface AccountEmailOptions {
     plaintextFallback?: string;
 }
 
+const accountEmailTemplate = readFileSync(
+    "server/src/resources/account.html", "utf-8"
+);
+
 export async function sendAccountEmail(options: AccountEmailOptions) {
     if (!process.env.ORIGIN || !process.env.EMAIL_ACCOUNT) {
         throw new Error("origin or email account variable missing.");
     }
-
-    const accountEmailTemplate = readFileSync(
-        resolve("server/src/resources/account.html"),
-        "utf-8"
-    );
 
     const transporter = mailer.createTransport({
         host: "smtp.gmail.com",
