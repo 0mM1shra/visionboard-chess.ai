@@ -18,7 +18,7 @@ Originally built on top of the open-source **[WintrChess](https://github.com/Win
 VISION Board is built using modern web development frameworks and APIs:
 
 - **Frontend**: React, TypeScript, Zustand (State Management), Webpack (Bundler), Vanilla CSS modules.
-- **Backend**: Node.js, Express, Better Auth (Session Management & Credentials Authentication).
+- **Backend**: Node.js, Express.
 - **Database**: MongoDB & Mongoose (Object Data Modeling).
 - **APIs & Integrations**: Google Gemini API (AI Chess Coach), Stockfish.js (Browser-run Web Worker engines for move analysis and play difficulty).
 
@@ -80,6 +80,19 @@ We extended the base chess analysis platform with a suite of custom features to 
 
 ---
 
+## 📸 Screenshots
+
+### 1. Active Bot Play & Move Feedback
+![Play vs Stockfish Move Feedback](Screenshots/Play%20vs%20Stockfish%20move%20feedback.png)
+
+### 2. AI Coach Move Explanation Chatbot
+![AI Coach Chatbot](Screenshots/AI%20Coach.png)
+
+### 3. PGN Analysis & Game Review Dashboard
+![Game Review Analysis](Screenshots/Game%20Review%20Analysis.png)
+
+---
+
 ## 📂 Repository Structure
 
 ```
@@ -92,7 +105,7 @@ We extended the base chess analysis platform with a suite of custom features to 
 │   └── public/                 # HTML templates, assets, icons, and audio
 ├── server/                     # Backend server workspace (Express + Node)
 │   ├── src/                    # Source directory containing api routes
-│   │   └── routes/             # Gemini AI Coach and auth handler endpoints
+│   │   └── routes/             # Gemini AI Coach routes endpoints
 │   └── dist/                   # Compiled server distribution folder
 ├── shared/                     # Common shared monorepo codebase
 │   └── src/                    # Shared typings, helper utilities, and calculations
