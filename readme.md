@@ -8,6 +8,17 @@ Originally built on top of the open-source **[WintrChess](https://github.com/Win
 
 ---
 
+## 🛠️ Tech Stack
+
+VISION Board is built using modern web development frameworks and APIs:
+
+- **Frontend**: React, TypeScript, Zustand (State Management), Webpack (Bundler), Vanilla CSS modules.
+- **Backend**: Node.js, Express, Better Auth (Session Management & Credentials Authentication).
+- **Database**: MongoDB & Mongoose (Object Data Modeling).
+- **APIs & Integrations**: Google Gemini API (AI Chess Coach), Stockfish.js (Browser-run Web Worker engines for move analysis and play difficulty).
+
+---
+
 ## 🛠️ Built on Top of WintrChess
 
 VISION Board leverages the core board rendering, move classification, and engine analysis architectures of **WintrChess**, adding a suite of custom features to enhance the gameplay, tutoring, and design aesthetics:
