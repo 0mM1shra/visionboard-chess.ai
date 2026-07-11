@@ -1,8 +1,8 @@
 # 👁️ VISION Board
 
-VISION Board is a premium Chess Tutor and Game Analysis dashboard featuring a sleek dark emerald interface, Stockfish ELO play bot integrations, and real-time AI move explanations. 
+VISION Board is a premium Chess Tutor, Local Game Review Engine, and Play Dashboard. Designed as a high-fidelity tool for players to review their matches and hone their skills, the platform offers automated game reviews, an interactive AI coach chatbot, and adjustable ELO computer bot play.
 
-Originally built on top of the open-source **[WintrChess](https://github.com/WintrCat/wintrchess)** engine, this project extends the base review platform into a comprehensive, interactive coaching tool with bot-play capabilities, custom animations, and a real-time AI Grandmaster tutor.
+Originally built on top of the open-source **[WintrChess](https://github.com/WintrCat/wintrchess)** engine, this application extends the base review tools into a fully interactive chess sandbox.
 
 ![Game Review Analysis](Screenshots/Game%20Review%20Analysis.png)
 
@@ -19,9 +19,29 @@ VISION Board is built using modern web development frameworks and APIs:
 
 ---
 
-## 🛠️ Built on Top of WintrChess
+## 🚀 Core Chess Engine & Analysis Features
 
-VISION Board leverages the core board rendering, move classification, and engine analysis architectures of **WintrChess**, adding a suite of custom features to enhance the gameplay, tutoring, and design aesthetics:
+At its core, VISION Board provides powerful chess evaluation tools powered by local and remote integrations:
+
+1. **📥 Multi-Source Game Importer**:
+   - **Chess.com Integration**: Fetch games directly using any public Chess.com username. The application calls the Chess.com public API, parses the match records, and loads them instantly.
+   - **Lichess Integration**: Fetch matches directly from Lichess.org profiles.
+   - **PGN Parser**: Parse raw PGN (Portable Game Notation) text files, rebuilding the state tree and move list automatically.
+   - **FEN Loader**: Input any custom FEN (Forsyth-Edwards Notation) string to set up the board position and explore different openings or tactical puzzles.
+
+2. **💻 Local Stockfish Engine Evaluation**:
+   - Runs a full instance of **Stockfish.js** locally inside a browser Web Worker thread.
+   - Evaluates positions in real time as the user navigates the move tree, plotting an evaluation graph and providing engine lines without sending data to a remote server.
+
+3. **📊 Professional Game Review & Classification**:
+   - Automatically evaluates whole games and calculates individual player accuracy percentages.
+   - Classifies every move into standard notation badges: **Brilliant**, **Great Move**, **Best Move**, **Excellent**, **Good**, **Book**, **Inaccuracy**, **Mistake**, and **Blunder**.
+
+---
+
+## 💎 Custom Extensions & Extensions Added
+
+We extended the base chess analysis platform with a suite of custom features to build a complete learning dashboard:
 
 1. **🤖 Play vs Stockfish Bot (ELO Selection)**:
    - Configured custom play setup controls allowing users to select their color (White or Black) and ELO strength (**500**, **1000**, **1500**, **2000**, **2500**).
@@ -72,21 +92,10 @@ VISION Board leverages the core board rendering, move classification, and engine
 ├── shared/                     # Common shared monorepo codebase
 │   └── src/                    # Shared typings, helper utilities, and calculations
 ├── Screenshots/                # Application preview screenshots
-├── vercel.json                 # Vercel monorepo deployment routes configuration
 ├── package.json                # Project workspaces script config
 ├── readme.md                   # Repository documentation (this file)
 └── LICENSE                     # GPL-3.0 License details
 ```
-
----
-
-## 📸 Screenshots
-
-### 1. Active Bot Play & Move Feedback
-![Play vs Stockfish Move Feedback](Screenshots/Play%20vs%20Stockfish%20move%20feedback.png)
-
-### 2. AI Coach Move Explanation Chatbot
-![AI Coach Chatbot](Screenshots/AI%20Coach.png)
 
 ---
 
@@ -116,3 +125,6 @@ VISION Board is created and developed by **Om Mishra ([0mM1shra](https://github.
 
 ---
 
+## 📄 License
+
+This project is licensed under the **GPL-3.0 License** - see the [LICENSE](LICENSE) file for details.
